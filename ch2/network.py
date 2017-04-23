@@ -110,12 +110,20 @@ class Network(object):
             zs.append(z)
             activation = sigmoid(z)
             activations.append(activation)
+<<<<<<< HEAD
         # 输出层反向传播 BP1
+=======
+        # 输出层反向传播 BP1-BP2
+>>>>>>> 186e435c9d03b56cf3faee1cb9605ace772040da
         delta = self.cost_derivative(activations[-1], y) * \
             sigmoid_prime(zs[-1])
         nabla_b[-1] = delta
         nabla_w[-1] = np.dot(delta, activations[-2].transpose())
+<<<<<<< HEAD
         #中间层反向传播 BP2-BP3-BP4
+=======
+        #中间层反向传播 BP3-BP4
+>>>>>>> 186e435c9d03b56cf3faee1cb9605ace772040da
         for l in range(2, self.num_layers):
             z = zs[-l]
             sp = sigmoid_prime(z)
