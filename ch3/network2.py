@@ -113,7 +113,32 @@ class Network(object):
             print("")
         return evaluation_cost, evaluation_accuracy, \
                 training_cost, training_accuracy
-
+    ###随机梯度下降
+    #self 神经网络参数
+    #training_data 训练数据 m*x
+    #epochs 迭代次数 1500
+    #mini_batch_size 小样本数据集 m
+    #eta 学习率
+    #lmbda = 0 正则化
+    #
+    def SGD_kaggle(self, training_data, epochs,
+     mini_batch_size, eta,
+     lmbda = 0.0,
+     test_data = None
+     ):
+        if test_data:
+            n_data = len(test_data)
+        n = len(training_data)
+        for j in range(epochs):
+            random.shuffle(training_data)
+            mini_batches =[
+                training_data[k:k+mini_batch_size]
+                for k in range(0, n, mini_batch_size)
+                ]
+            for mini_batch in mini_batches:
+                self.update_mini_batch(mini_batch, eta, lmbda,len(training_data))
+        labels = [np.argmax(self.feedforward(x)) for x in test_data]
+        return labels
     ###利用随机样本，调整神经网络参数
     ###参照算法p2.6-小样本集合
     def update_mini_batch(self, mini_batch, eta, lmbda, n):

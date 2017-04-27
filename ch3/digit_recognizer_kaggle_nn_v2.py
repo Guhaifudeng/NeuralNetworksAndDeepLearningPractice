@@ -3,10 +3,10 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-import network
+import network2
 def digit_recognize_test():
     #载入数据
-    train = pd.read_csv('../../input/train.csv').sample(2000)
+    train = pd.read_csv('../../input/train.csv')
     print('train: ' + str(train.shape))
     test = pd.read_csv('../../input/test.csv')
     print('test: ' + str(test.shape))
@@ -29,9 +29,8 @@ def digit_recognize_test():
     test_data = list(test.values)
     predit_inputs = [np.reshape(x, (784, 1)) for x in test_data]
 
-    net = network.Network([784,30,10])
-    predictions = net.SGD_kaggle(training_data, 70,10,3.0,test_data = predit_inputs)
-    print(type(predictions))
+    net = network2.Network([784,50,10])
+    predictions = net.SGD_kaggle(training_data, 60,10,0.1,lmbda = 5.0,test_data = predit_inputs)
     #输出数据
     result = pd.DataFrame({'ImageId': list(range(1,len(predictions)+1)), 'Label': predictions})
     result.to_csv('../../output/dr_result.csv', index=False, header=True)
